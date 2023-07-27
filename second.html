@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shopping Cart</title>
+</head>
+<body>
+  <h1>Shopping Cart</h1>
+  <div id="cart">
+    <div class="item">
+      <span>Apple - $1.50</span>
+      <input type="number" min="0" value="1" onchange="updateQuantity('apple', this.value)">
+    </div>
+    <div class="item">
+      <span>Banana - $0.75</span>
+      <input type="number" min="0" value="1" onchange="updateQuantity('banana', this.value)">
+    </div>
+    <div class="item">
+      <span>Orange - $1.25</span>
+      <input type="number" min="0" value="1" onchange="updateQuantity('orange', this.value)">
+    </div>
+  </div>
+  <p>Total: $<span id="total">0.00</span></p>
+  <button onclick="checkout()">Checkout</button>
+
+  <script>
+    // Item prices
+    const itemPrices = {
+      apple: 1.5,
+      banana: 0.75,
+      orange: 1.25
+    };
+
+    // Initial cart quantities
+    let cart = {
+      apple: 1,
+      banana: 1,
+      orange: 1
+    };
+
+    // Function to update the quantity of an item
+    function updateQuantity(item, quantity) {
+      cart[item] = parseInt(quantity);
+      calculateTotal();
+    }
+
+    // Function to calculate the total price
+    function calculateTotal() {
+      let total = 0;
+      for (const item in cart) {
+        total += cart[item] * itemPrices[item];
+      }
+      document.getElementById('total').textContent = total.toFixed(2);
+    }
+
+    // Function to simulate checkout
+    function checkout() {
+      // Here you can implement the actual checkout logic,
+      // such as sending the cart data to the server for processing.
+      // For this example, we'll just show an alert with the cart data.
+      alert('Cart Data:\n' + JSON.stringify(cart, null, 2));
+    }
+  </script>
+</body>
+</html>
